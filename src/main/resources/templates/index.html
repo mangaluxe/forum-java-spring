@@ -1,0 +1,118 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+
+<div class="container">
+    <div th:replace="~{fragments/breadcrumb :: breadcrumb(pageName='', currentPage='')}"></div>
+
+    <main>
+        <h1 class="h1 center">Micro Forum</h1>
+
+        <p>Bienvenue sur mon nouveau <strong>forum manga</strong>, en version <strong>Java Spring</strong>. Cette version crée avec le <strong>framework Java Spring</strong> est une version allégée de la version PHP.</p>
+
+
+        <h2 class="h-box-shadow">Choisissez votre forum :</h2>
+
+        <div class="table-list-head forum-home">
+            <div class="e">Forum</div>
+            <div class="e no-mobile">Sujets</div>
+            <div class="e no-mobile">Messages</div>
+            <div class="e">Dernier message</div>
+        </div>
+        <ul class="table-list forum-home">
+
+            <li>
+                <div class="e forum-home-box1">
+                    <div><a th:href="@{/sujets}"><img th:src="@{/assets/img/discussions-generales.png}"></a></div>
+                    <div>
+                        <p><a th:href="@{/sujets}"><strong>Discussions générales</strong></a></p>
+                        <p>Forum de discussion générale pour parler de tout.</p>
+                    </div>
+                </div>
+                <div class="e no-mobile"><span th:text="${totalSujets}"></span></div>
+                <div class="e no-mobile"><span th:text="${totalMessages}"></span></div>
+                <div class="e overflow-ellipsis">
+                    <div th:if="${dernierMessage != null}">
+                        <a th:href="@{'/sujet/' + ${dernierMessage.sujet.id} + '#m' + ${dernierMessage.id}}">
+                            <span th:text="${dernierMessage.sujet.titre}">Aucun message</span>
+                        </a><br>
+                        Par <span th:text="${dernierMessage.utilisateur.username}"></span><br>
+                        Le <span th:text="${dernierMessage.sujet.datetime}"></span>
+                    </div>
+                    <div th:if="${dernierMessage == null}">Aucun message</div>
+                </div>
+            </li>
+
+        </ul>
+
+        <h2 class="h-box-shadow">Statistiques :</h2>
+
+        <p>Nombre de sujets au total : <span th:text="${totalSujets}">0</span><br>
+            Nombre de messages au total : <span th:text="${totalMessages}">0</span><br>
+            Nombre total de membres : <span th:text="${nbTotalMembres}">0</span>
+        </p>
+
+        <!-- Vérification si l'utilisateur est connecté -->
+        <div th:if="${isLogged}">
+            <p>Vous êtes connecté en tant que <span th:text="${session.username}">Username</span>.</p>
+            <a href="/logout">Déconnexion</a>
+        </div>
+
+        <!-- Si l'utilisateur n'est pas connecté -->
+        <div th:if="${!isLogged}">
+            <p>Vous n'êtes pas connecté. <a href="/login">Connexion</a> ou <a href="/registration">Inscription</a>.</p>
+        </div>
+
+
+        <h2 class="h-box-shadow">Liste de fonctionnalités :</h2>
+        <ul class="li-arrow">
+            <li>Inscription.</li>
+            <li>Connexion pour poster.</li>
+            <li>Créer un nouveau sujet.</li>
+            <li>Répondre à un sujet existant.</li>
+            <li>Validation de formulaire (ok pour le titre, mais problème avec le message, car impossible d'utiliser 2 entités en même temps avec la validation).</li>
+            <li>Fil d'Ariane.</li>
+            <li>Messages flash.</li>
+            <li>Statistiques.</li>
+            <li>Lien vers dernier message de chaque sujet.</li>
+            <li>Afficher le nombre de messages par sujet.</li>
+            <li>Moteur de recherche avancé avec la distance de Levenshtein pour trouver des sujets avec un mot approximatif.</li>
+        </ul>
+
+        <h2 class="h-box-shadow">Fonctionnalités à ajouter plus tard :</h2>
+        <ul class="li-arrow">
+            <li>Pagination.</li>
+            <li>Slug au lieu d'id dans l'url.</li>
+            <li>Modifier ou effacer ses propres messages.</li>
+            <li>Sécurité avec BCrypt.</li>
+            <li>Limiter le nombre d'erreurs de mot de passe dans un temps donné.</li>
+            <li>Mot de passe oublié (envoi d'un lien unique avec token pour initialiser son mot de passe).</li>
+            <li>Espace membre (modifier son profil, ajouter un avatar).</li>
+            <li>Espace admin/modérateurs (gestion de rôle).</li>
+            <li>Panneau de configuration (autoriser invités à poster).</li>
+            <li>Créer des catégories de forums (dans l'espace admin).</li>
+            <li>Déplacer sujets dans un autre forum (modération).</li>
+            <li>Système de bannissement (modération).</li>
+            <li>Epingler un sujet (modération).</li>
+            <li>Verrouiller un sujet (modération).</li>
+            <li>Messages privés entre utilisateurs.</li>
+            <li>Notification en cas de réponse à un sujet.</li>
+            <li>Ajouter un sujet en favoris.</li>
+            <li>Signaler un sujet.</li>
+            <li>Bloquer un autre utilisateur.</li>
+            <li>Ignorer un autre utilisateur.</li>
+            <li>Bloquer les liens aux invités et autoriser uniquement aux membres qui ont déjà x messages ou x jours d'ancienneté.</li>
+            <li>Limiter le temps d'édition (pour éviter qu'on mette de la pub quand un sujet n'est plus surveillé).</li>
+            <li>Afficher les derniers messages et sujets d'un utilisateur dans son profil.</li>
+        </ul>
+        <p>Etc...</p>
+
+    </main>
+</div>
+
+
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

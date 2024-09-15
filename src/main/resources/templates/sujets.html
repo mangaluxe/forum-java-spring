@@ -1,0 +1,56 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+
+<div class="container">
+    <div th:replace="~{fragments/breadcrumb :: breadcrumb(pageName='Forum', currentPage='Liste des sujets')}"></div>
+
+    <main>
+
+        <h1 class="center h1">Liste des sujets</h1>
+
+        <a th:href="@{/sujet/nouveau}" class="btn" rel="nofollow">Nouveau Sujet</a>
+
+        <p>Nombre de sujets au total : <span th:text="${totalSujets}"></span><br>
+            Nombre de messages au total : <span th:text="${totalMessages}"></span></p>
+
+        <div class="table-list-head topics-box">
+            <div class="e">Sujets</div>
+            <div class="e no-mobile">Réponses</div>
+            <div class="e">Dernier message</div>
+        </div>
+        <ul class="table-list topics-box">
+            <li th:each="sujet : ${sujets}">
+                <div class="e">
+                    <div class="topics-box-title-icon icon-file-text2"></div>
+                    <div>
+                        <div><a th:href="@{/sujet/{id}(id=${sujet.id})}" th:text="${sujet.getTitre()}"></a></div>
+                        <div>Par <span th:if="${sujet.auteur != null}" th:text="${sujet.auteur.username}"></span>
+                            <span th:if="${sujet.auteur == null}">Inconnu</span> le <span th:text="${sujet.getDatetime()}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="e no-mobile" th:text="${sujet.nombreReponses}">?</div>
+                <div class="e overflow-ellipsis">
+                    <div class="overflow-ellipsis">
+                        <a th:if="${sujet.lastMessage != null}"
+                           th:href="@{'/sujet/' + ${sujet.id} + '#m' + ${sujet.lastMessage.id}}"
+                           th:text="${sujet.titre}">Dernier message</a><br>
+
+                        Par <span th:if="${sujet.lastMessage != null and sujet.lastMessage.utilisateur != null}"
+                                  th:text="${sujet.lastMessage.utilisateur.username}"></span>
+                        <span th:if="${sujet.lastMessage == null or sujet.lastMessage.utilisateur == null}">Inconnu</span><br>
+                        <span th:text="${sujet.lastMessage.datetime}"></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </main>
+</div>
+
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

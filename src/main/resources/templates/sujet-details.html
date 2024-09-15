@@ -1,0 +1,76 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+
+<div class="container">
+    <div th:replace="~{fragments/breadcrumb :: breadcrumb(pageName='Forum', sujetName='Sujets', currentPage=${sujet.titre})}"></div>
+
+    <main>
+        <h1 class="center h1" th:text="${sujet.titre}"></h1>
+
+        <div class="mt-5 mb-5">
+            <a th:href="@{/sujet/nouveau}" class="btn" rel="nofollow">Nouveau Sujet</a>
+            <a href="#re" class="btn" rel="nofollow">Répondre</a>
+        </div>
+
+        <div class="forum-box" th:each="message : ${sujet.messages}">
+
+            <div class="forum-box-head" th:attr="id=${'m' + message.id}">
+                <div><img th:src="@{/assets/img/neutre.png}" alt="Neutre"></div>
+                <div class="post-user">
+                    <div>
+                        <div><span th:text="${message.utilisateur.username}">Utilisateur</span></div>
+                        <div class="userinfo">Membre</div>
+                        <div class="userinfo">Messages : XX</div>
+                    </div>
+                    <div class="userinfo"><span th:text="${message.datetime}">Date</span></div>
+                </div>
+            </div>
+
+            <div class="forum-box-body" th:utext="${message.message}">Contenu du Message</div>
+
+            <div class="forum-box-foot">
+                <a href="#" class="mini-btn" rel="nofollow">Citer <span class="icon-quotes-left"></span></a>
+
+                <a href="#" class="mini-btn" rel="nofollow">Editer <span class="icon-pencil"></span></a>
+                <a href="#" class="mini-btn" rel="nofollow">Supprimer <span class="icon-cross"></span></a>
+            </div>
+        </div>
+
+
+        <div class="pagination-container">
+            <div class="pagination">
+                <a href="/sujet/1" class="active">1</a><a href="/sujet/2" class="">2</a><a href="/sujet/3" class="">3</a><a href="/sujet/4" class="">4</a><a href="/sujet/5" class="">5</a><a href="/sujet/2" class="icon-arrow-next"></a><a href="/sujet/5" class="icon-arrow-last"></a>
+            </div>
+        </div>
+
+        <!-- Pagination : Ne marche pas -->
+        <!--    <div class="pagination-container">-->
+        <!--        <div class="pagination">-->
+        <!--            <a th:if="${messagesPage.hasPrevious()}" th:href="@{/sujet/{id}/messages(id=${sujet.id}, page=${messagesPage.number - 1})}" class="icon-arrow-prev"></a>-->
+        <!--            <a th:each="pageNum : ${#numbers.sequence(0, messagesPage.totalPages - 1)}"-->
+        <!--               th:href="@{/sujet/{id}/messages(id=${sujet.id}, page=${pageNum})}"-->
+        <!--               th:text="${pageNum + 1}"-->
+        <!--               th:classappend="${pageNum == messagesPage.number ? ' active' : ''}"></a>-->
+        <!--            <a th:if="${messagesPage.hasNext()}" th:href="@{/sujet/{id}/messages(id=${sujet.id}, page=${messagesPage.number + 1})}" class="icon-arrow-next"></a>-->
+        <!--        </div>-->
+        <!--    </div>-->
+
+
+        <div>
+            <h2 class="h-triangle" id="re">Répondre</h2>
+            <form th:action="@{/sujet/{id}/messages(id=${sujet.id})}" method="post">
+                <textarea name="message" id="editor"></textarea>
+<!--                <p th:if="${#fields.hasErrors('message')}" th:errors="*{message}" class="i warning"></p>-->
+                <button type="submit" class="btn mt-2">Répondre</button>
+            </form>
+        </div>
+
+    </main>
+</div>
+
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

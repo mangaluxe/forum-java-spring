@@ -1,0 +1,36 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+
+<div class="container">
+    <div th:replace="~{fragments/breadcrumb :: breadcrumb(pageName='Forum', currentPage='Nouveau Sujet')}"></div>
+
+    <main>
+        <h1 class="center h1">Créer un Nouveau Sujet</h1>
+
+        <form th:action="@{/sujet/nouveau}" th:object="${sujet}" method="post">
+            <div>
+                <label for="titre">Titre du sujet :
+                    <input type="text" id="titre" name="titre" th:field="*{titre}" class="form-control">
+                </label>
+                <p th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}" class="i warning"></p>
+            </div>
+
+            <div>
+                <label for="editor">Premier message :
+                    <textarea name="message" th:field="*{message}" class="form-control" id="editor"></textarea>
+                </label>
+                <p th:if="${#fields.hasErrors('message')}" th:errors="*{message}" class="i warning"></p>
+            </div>
+
+            <button class="btn" type="submit">Créer</button>
+        </form>
+
+    </main>
+</div>
+
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>
