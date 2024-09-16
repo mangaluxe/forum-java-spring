@@ -90,10 +90,10 @@ public class SujetController {
         if (sujet != null) {
             model.addAttribute("sujet", sujet);
             model.addAttribute("title", "Forum - Sujet : " + sujet.getTitre()); // Pour le title de la page
-            return "sujet-details"; // Assure-toi que ce nom correspond au fichier HTML
+            return "sujet-details";
         }
         else {
-            return "404";
+            return "error/404";
         }
     }
 
