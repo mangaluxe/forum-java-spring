@@ -78,6 +78,7 @@
                             <div class="h4 mb-0">Recherche</div>
                         </div>
                         <form th:action="@{/recherche}" method="get" class="search">
+                            <input type="hidden" name="csrfToken" th:value="${csrfToken}">
                             <input type="search" name="recherche">
                             <button type="submit" class="submit"><span class="icon-search"></span></button>
                         </form>
@@ -85,7 +86,7 @@
                 </div>
 
                 <div th:if="${isLogged == true}">
-                    <a href="javascript:void(0)" class="icon-user" id="profil-drop"><span class="txt"><span th:text="${session.username}">Pseudo</span></span></a>
+                    <a href="javascript:void(0)" class="icon-user" id="profil-drop"><span class="txt" th:text="${session.username}">Pseudo</span></a>
                     <div class="profil-dropdown">
                         <div class="profil-dropdown-menu">
                             <a th:href="@{/logout}" rel="nofollow"><span class="icon-exit"></span>Déconnexion</a>
@@ -95,7 +96,7 @@
                 </div>
 
                 <div th:if="${isLogged != true}">
-                    <a href="javascript:void(0)" class="icon-user open-connect"><span class="txt">Connexion</span></a>
+                    <a href="javascript:void(0)" rel="nofollow" class="icon-user open-connect"><span class="txt">Connexion</span></a>
                 </div>
 
             </div>
@@ -103,7 +104,7 @@
     </header>
 
     <!-- Message flash -->
-    <div th:if="${successMessage}" class="warning b center">
+    <div th:if="${successMessage}" class="success b center">
         <p th:text="${successMessage}"></p>
     </div>
     <div th:if="${errorMessage}" class="warning b center">

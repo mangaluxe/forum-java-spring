@@ -8,21 +8,25 @@
 
         <h1 class="h1 center">Inscription au forum</h1>
 
+        <div th:if="${error}" class="warning b center">
+            <p th:text="${error}"></p>
+        </div>
+
         <form th:action="@{/registration}" th:object="${utilisateur}" method="post">
-<!--        <form th:action="@{/registration}" method="post">-->
+            <input type="hidden" name="csrfToken" th:value="${csrfToken}">
 
             <div>
                 <label for="username">Pseudo :
-                    <input type="text" id="username" name="username" class="form-control">
+                    <input type="text" id="username" name="username" th:field="*{username}" class="form-control">
                 </label>
-                <!--                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="i warning"></p>-->
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="i warning"></p>
             </div>
 
             <div>
                 <label for="password">Mot de passe :
-                    <input type="password" id="password" name="password" class="form-control">
+                    <input type="password" id="password" name="password"  class="form-control">
                 </label>
-                <!--                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="i warning"></p>-->
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="i warning"></p>
             </div>
 
             <button class="btn">Valider</button>

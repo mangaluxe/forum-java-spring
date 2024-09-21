@@ -42,6 +42,9 @@ public class SujetController {
 
     // ----- Read -----
 
+    /**
+     * Afficher tous les sujets
+     */
     @GetMapping("/sujets")
     public String listSujets(Model model) {
 
@@ -82,8 +85,9 @@ public class SujetController {
 
 
 
-
-
+    /**
+     * Afficher un sujet
+     */
     @GetMapping("/sujet/{id}")
     public String getSujetById(@PathVariable("id") int id, Model model) {
         Sujet sujet = sujetService.getSujetById(id);
@@ -100,12 +104,18 @@ public class SujetController {
 
     // ----- Create -----
 
+    /**
+     * Formulaire pour créer
+     */
     @GetMapping("/sujet/nouveau")
     public String showCreateSujetForm(Model model) {
         model.addAttribute("sujet", new Sujet());
         return "nouveau-sujet";
     }
 
+    /**
+     * Créer
+     */
     @PostMapping("/sujet/nouveau")
     public String createSujet(@Valid @ModelAttribute("sujet") Sujet sujet, BindingResult bindingResult, Model model) {
 
@@ -114,17 +124,17 @@ public class SujetController {
             return "nouveau-sujet"; // Si erreurs de validation, retour au formulaire
         }
 
-        // Le titre et le message sont sur 2 entités différentes (Sujet et Message), ce qui pose problème avec la validation. Problème non résolu. Je mets ceci pour éviter le bug et il n'y aura pas de message qui signale que le champ est obligatoire
+        // Le titre et le message sont sur 2 entités différentes (Sujet et Message), ce qui pose problème avec la validation. Je mets ceci pour contourner le problème
         if (sujet.getMessage() == null || sujet.getMessage().trim().isEmpty()) {
-            model.addAttribute("error", "Le message ne peut pas être vide.");
+            model.addAttribute("error", "Message obligatoire.");
             return "nouveau-sujet"; // Revenir au formulaire
         }
         // --- ---
 
-        Utilisateur utilisateur = utilisateurService.findCurrentUser(); // Récupérer l'utilisateur connecté en session
+        Utilisateur utilisateur = utilisateurService.findCurrentUser(); // Récupère l'utilisateur connecté en session
 
         if (utilisateur == null) {
-            model.addAttribute("error", "Utilisateur non connecté.");
+            model.addAttribute("error", "Vous n’êtes pas connecté !");
             return "nouveau-sujet";
         }
 

@@ -9,6 +9,8 @@
     <main>
         <h1 class="center h1">Créer un Nouveau Sujet</h1>
 
+        <p th:if="${error != null}" th:text="${error}" class="warning"></p>
+
         <form th:action="@{/sujet/nouveau}" th:object="${sujet}" method="post">
             <div>
                 <label for="titre">Titre du sujet :

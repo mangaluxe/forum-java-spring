@@ -23,7 +23,7 @@ public class Message {
 
     @NotBlank(message = "Mettez un message")
     // @MyValid(message = "Gros mots interdits") // Validation personnalisée. Problème si on utilise, car le formulaire de "nouveau sujet" utilise 2 entités en même temps (Sujet et Message)
-    @Column(name = "message", length = 65535) // 65535 est une taille maximale pour TEXT
+    @Column(columnDefinition = "text")
     private String message;
 
     private LocalDateTime datetime;
