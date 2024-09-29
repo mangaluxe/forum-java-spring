@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.example.forum.validation.MyValid;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -41,7 +42,20 @@ public class Sujet {
     private List<Message> messages;
 
 
-    // ---------- Données à ne pas persister en BDD : ----------
+    // ---------- Formatage de date ----------
+
+    public String getDateTimeFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
+        return this.datetime != null ? this.datetime.format(formatter) : "";
+    }
+
+    /* Mettre dans le html :
+
+    <span th:text="${sujet.getDateTimeFormatted()}"></span>
+    */
+
+
+    // ---------- @Transient : Données à ne pas persister en BDD : ----------
 
     // @Transient pour ne pas le persister en BDD. Cela permet de créer des propriétés calculées qui ne sont pas stockées en BDD, mais sont calculées au moment de l'exécution
 

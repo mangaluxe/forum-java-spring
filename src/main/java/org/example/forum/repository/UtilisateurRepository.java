@@ -1,4 +1,4 @@
-package org.example.forum.dao;
+package org.example.forum.repository;
 
 import org.example.forum.entity.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;

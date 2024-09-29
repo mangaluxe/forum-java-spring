@@ -6,7 +6,10 @@ import org.example.forum.entity.Utilisateur;
 import org.example.forum.service.AuthService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.example.forum.validation.OnLogin;
+import org.example.forum.validation.OnRegistration;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes; // Message flash
 
@@ -46,9 +49,9 @@ public class AuthController {
      * Connexion
      */
     @PostMapping("/login")
-    public String connexion(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, @RequestParam("csrfToken") String csrfToken, HttpSession session) {
+    public String connexion(@Validated(OnLogin.class) @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, @RequestParam("csrf_token") String csrfToken, HttpSession session) { // @ModelAttribute pour lier des données du formulaire à un objet (ici utilisateur). Dans le formulaire, on précise avec th:object="${utilisateur}" : <form th:action="@{/login}" th:object="${utilisateur}" method="post">
         // --- Vérification du token CSRF ---
-        String sessionCsrfToken = (String) session.getAttribute("csrfToken");
+        String sessionCsrfToken = (String) session.getAttribute("csrf_token");
 
         if (sessionCsrfToken == null || !sessionCsrfToken.equals(csrfToken)) {
             model.addAttribute("error", "Erreur token CSRF !");
@@ -97,9 +100,9 @@ public class AuthController {
      * Créer
      */
     @PostMapping("/registration")
-    public String inscription(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, @RequestParam("csrfToken") String csrfToken, HttpSession session) {
+    public String inscription(@Validated(OnRegistration.class) @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, @RequestParam("csrf_token") String csrfToken, HttpSession session) {
         // --- Vérification du token CSRF ---
-        String sessionCsrfToken = (String) session.getAttribute("csrfToken");
+        String sessionCsrfToken = (String) session.getAttribute("csrf_token");
 
         if (sessionCsrfToken == null || !sessionCsrfToken.equals(csrfToken)) {
             model.addAttribute("error", "Erreur token CSRF !");

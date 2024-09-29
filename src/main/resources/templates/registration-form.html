@@ -13,7 +13,7 @@
         </div>
 
         <form th:action="@{/registration}" th:object="${utilisateur}" method="post">
-            <input type="hidden" name="csrfToken" th:value="${csrfToken}">
+            <input type="hidden" name="csrf_token" th:value="${csrf_token}">
 
             <div>
                 <label for="username">Pseudo :
@@ -27,6 +27,13 @@
                     <input type="password" id="password" name="password"  class="form-control">
                 </label>
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="i warning"></p>
+            </div>
+
+            <div>
+                <label for="email">Email :
+                    <input type="text" id="email" name="email" th:field="*{email}" class="form-control">
+                </label>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="i warning"></p>
             </div>
 
             <button class="btn">Valider</button>

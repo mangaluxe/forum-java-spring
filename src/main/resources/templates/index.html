@@ -38,7 +38,7 @@
                             <span th:text="${dernierMessage.sujet.titre}">Aucun message</span>
                         </a><br>
                         Par <span th:text="${dernierMessage.utilisateur.username}"></span><br>
-                        Le <span th:text="${dernierMessage.sujet.datetime}"></span>
+                        Le <span th:text="${dernierMessage.sujet.getDateTimeFormatted()}"></span>
                     </div>
                     <div th:if="${dernierMessage == null}">Aucun message</div>
                 </div>

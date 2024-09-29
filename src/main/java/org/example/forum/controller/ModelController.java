@@ -27,20 +27,23 @@ public class ModelController {
 
     // ========== Méthodes ==========
 
-    @ModelAttribute
+    /**
+     * Ajoute un attribut d'authentification ("isLogged") au modèle pour toutes les vues
+     */
+    @ModelAttribute // Une méthode marquée avec @ModelAttribute sera exécutée avant toutes les méthodes du contrôleur
     public void addAuthenticationAttributes(Model model) {
 
         // Méthode exécutée automatiquement pour chaque requête de tout contrôleur (pour éviter de répéter cette ligne dans chaque méthode de controller) :
         model.addAttribute("isLogged", authService.isLogged());
 
         /*
-        ----- Utile d'appliquer ceci sur tous les controllers, car dans header.html, on a ces conditions : -----
+        ----- Utile pour appliquer ceci sur tous les controllers, car dans header.html, on a ces conditions : -----
 
-        <div th:if="${isLogged == true}">
-            (...)
+        <div th:if="${isLogged}">
+            <p>Bienvenue, vous êtes connecté !</p>
         </div>
 
-        <div th:if="${isLogged != true}">
+        <div th:if="${!isLogged}">
             <a href="javascript:void(0)" rel="nofollow" class="icon-user open-connect"><span class="txt">Connexion</span></a>
         </div>
 
@@ -59,21 +62,25 @@ public class ModelController {
     }
 
 
-    @ModelAttribute("csrfToken")
+    /**
+     * Ajouter un token CSRF à toutes les vues
+     */
+    @ModelAttribute("csrf_token")
     public String addCsrfTokenToModel(HttpSession session) {
 
-        String csrfToken = (String) session.getAttribute("csrfToken");
+        String sessionCsrfToken = (String) session.getAttribute("csrf_token");
 
-        if (csrfToken == null) { // Génère un token CSRF si ce n'est pas déjà présent dans la session
+        if (sessionCsrfToken == null) { // Génère un token CSRF si ce n'est pas déjà présent dans la session
             SecureRandom secureRandom = new SecureRandom();
             byte[] token = new byte[32];
             secureRandom.nextBytes(token);
-            csrfToken = Base64.getEncoder().encodeToString(token);
+            sessionCsrfToken = Base64.getEncoder().encodeToString(token);
 
-            session.setAttribute("csrfToken", csrfToken); // Pour qu'on puisse utiliser dans le html
+            session.setAttribute("csrf_token", sessionCsrfToken); // Stocke le token CSRF dans la session pour qu'on puisse utiliser dans le html
         }
 
-        return csrfToken;
+        return sessionCsrfToken;
     }
+
 
 }

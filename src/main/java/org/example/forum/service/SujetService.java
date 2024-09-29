@@ -1,6 +1,6 @@
 package org.example.forum.service;
 
-import org.example.forum.dao.SujetRepository;
+import org.example.forum.repository.SujetRepository;
 import org.example.forum.entity.Sujet;
 import org.springframework.stereotype.Service;
 import org.example.forum.util.Levenshtein; // Ma propre méthode distance de Levenshtein

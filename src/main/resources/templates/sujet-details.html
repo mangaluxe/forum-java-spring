@@ -24,7 +24,7 @@
                         <div class="userinfo">Membre</div>
                         <div class="userinfo">Messages : XX</div>
                     </div>
-                    <div class="userinfo"><span th:text="${message.datetime}">Date</span></div>
+                    <div class="userinfo"><span th:text="${message.getDateTimeFormatted()}"></span></div>
                 </div>
             </div>
 

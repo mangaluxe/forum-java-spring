@@ -27,7 +27,8 @@
                     <div>
                         <div><a th:href="@{/sujet/{id}(id=${sujet.id})}" th:text="${sujet.getTitre()}"></a></div>
                         <div>Par <span th:if="${sujet.auteur != null}" th:text="${sujet.auteur.username}"></span>
-                            <span th:if="${sujet.auteur == null}">Inconnu</span> le <span th:text="${sujet.getDatetime()}"></span>
+<!--                            <span th:if="${sujet.auteur == null}">Inconnu</span> le <span th:text="${sujet.getDatetime()}"></span>-->
+                            <span th:if="${sujet.auteur == null}">Inconnu</span> le <span th:text="${sujet.getDateTimeFormatted()}"></span>
                         </div>
                     </div>
                 </div>
@@ -41,7 +42,7 @@
                         Par <span th:if="${sujet.lastMessage != null and sujet.lastMessage.utilisateur != null}"
                                   th:text="${sujet.lastMessage.utilisateur.username}"></span>
                         <span th:if="${sujet.lastMessage == null or sujet.lastMessage.utilisateur == null}">Inconnu</span><br>
-                        <span th:text="${sujet.lastMessage.datetime}"></span>
+                        <span th:text="${sujet.lastMessage.getDateTimeFormatted()}"></span>
                     </div>
                 </div>
             </li>

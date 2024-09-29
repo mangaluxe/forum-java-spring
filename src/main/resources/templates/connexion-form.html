@@ -13,7 +13,7 @@
         </div>
 
         <form th:action="@{/login}" th:object="${utilisateur}" method="post">
-            <input type="hidden" name="csrfToken" th:value="${csrfToken}">
+            <input type="hidden" name="csrf_token" th:value="${csrf_token}">
 
             <div>
                 <label for="username">Pseudo :

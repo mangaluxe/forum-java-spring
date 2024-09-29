@@ -1,6 +1,6 @@
 package org.example.forum.service;
 
-import org.example.forum.dao.MessageRepository;
+import org.example.forum.repository.MessageRepository;
 import org.example.forum.entity.Message;
 import org.springframework.data.domain.Page; // Pagination
 import org.springframework.data.domain.PageRequest; // Pagination

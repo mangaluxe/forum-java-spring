@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.example.forum.validation.MyValid;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Data // Annotation Lombok qui génère automatiquement les getters/setters, toString...
@@ -40,5 +41,19 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "user_id") // Crée une colonne user_id sur la table 'message'
     private Utilisateur utilisateur;
+
+
+    // ---------- Formatage de date ----------
+
+    public String getDateTimeFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
+        return this.datetime != null ? this.datetime.format(formatter) : "";
+    }
+
+    /* Mettre dans le html :
+
+    <span th:text="${message.getDateTimeFormatted()}"></span>
+    */
+
 
 }

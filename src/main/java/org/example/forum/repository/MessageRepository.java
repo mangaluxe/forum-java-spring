@@ -1,4 +1,4 @@
-package org.example.forum.dao;
+package org.example.forum.repository;
 
 import org.example.forum.entity.Message;
 import org.springframework.data.domain.Page; // Pagination

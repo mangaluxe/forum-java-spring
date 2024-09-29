@@ -1,7 +1,7 @@
 package org.example.forum.service;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.forum.dao.UtilisateurRepository;
+import org.example.forum.repository.UtilisateurRepository;
 import org.example.forum.entity.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
